@@ -1,14 +1,45 @@
 "use client";
 
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import Image from 'next/image';
+import { FiCode, FiSmartphone, FiGlobe, FiUser } from 'react-icons/fi';
 
 export default function About() {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+  const profileRef = useRef(null);
+  const [particles, setParticles] = useState([]);
+  
+  useEffect(() => {
+    if (inView) {
+      const newParticles = Array.from({ length: 20 }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 4 + 2,
+        duration: Math.random() * 20 + 10,
+        delay: Math.random() * 5,
+      }));
+      setParticles(newParticles);
+    }
+  }, [inView]);
+  
+  const handleMouseMove = (e) => {
+    if (!profileRef.current) return;
+    
+    const rect = profileRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    
+    setMousePosition({ x, y });
+  };
 
   const timelineItems = [
     {
@@ -79,18 +110,127 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="relative"
           >
-            <div className="relative w-full h-80 md:h-96">
-              <div className="w-full h-full rounded-lg overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-neon-blue/20 to-neon-purple/20"></div>
-                <div className="code-window absolute inset-0 flex flex-col">
-                  <div className="flex items-center space-x-1 p-2 border-b border-gray-700">
-                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    <span className="text-xs text-gray-400 ml-2">about-me.js</span>
+            <div className="relative">
+              {/* profile image */}
+            <div 
+                ref={profileRef}
+                className="relative w-full h-96 md:h-[350px] flex items-center justify-center mt-8"
+                onMouseMove={handleMouseMove}
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
+              >
+                <div className="absolute inset-0 overflow-hidden rounded-2xl">
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-slate-900/95 to-slate-900/80 backdrop-blur-sm z-0"></div>
+                  
+                  {particles.map(particle => (
+                    <motion.div
+                      key={particle.id}
+                      className="absolute rounded-full bg-neon-blue/40 z-0"
+                      style={{
+                        left: `${particle.x}%`,
+                        top: `${particle.y}%`,
+                        width: `${particle.size}px`,
+                        height: `${particle.size}px`,
+                      }}
+                      animate={{
+                        x: [0, Math.random() * 100 - 50],
+                        y: [0, Math.random() * 100 - 50],
+                        opacity: [0, 0.8, 0]
+                      }}
+                      transition={{
+                        duration: particle.duration,
+                        repeat: Infinity,
+                        delay: particle.delay,
+                        ease: "linear"
+                      }}
+                    />
+                  ))}
+                  
+                  <div className="absolute inset-0 bg-[linear-gradient(rgba(56,189,248,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(56,189,248,0.1)_1px,transparent_1px)]" style={{ backgroundSize: '20px 20px' }}></div>
+                </div>
+                
+                <div className="absolute left-4 top-1/4 text-5xl font-bold text-neon-blue/30 z-10">{`{`}</div>
+                <div className="absolute right-4 bottom-1/4 text-5xl font-bold text-neon-blue/30 z-10">{`}`}</div>
+                
+                <motion.div
+                  className="relative z-10 rounded-full overflow-hidden border-4 border-neon-blue/50 shadow-[0_0_30px_rgba(56,189,248,0.3)]"
+                  animate={{
+                    boxShadow: isHovering 
+                      ? [
+                          "0 0 30px rgba(56,189,248,0.3)",
+                          "0 0 50px rgba(56,189,248,0.5)",
+                          "0 0 30px rgba(56,189,248,0.3)"
+                        ]
+                      : "0 0 30px rgba(56,189,248,0.3)",
+                  }}
+                  transition={{ duration: 2, repeat: isHovering ? Infinity : 0 }}
+                  style={{
+                    transform: isHovering ? `perspective(1000px) rotateY(${(mousePosition.x - 0.5) * 10}deg) rotateX(${(0.5 - mousePosition.y) * 10}deg)` : "none",
+                    transformStyle: "preserve-3d",
+                    transition: "transform 0.2s ease-out",
+                  }}
+                >
+                  <div className="w-48 h-48 md:w-64 md:h-64 relative">
+                    <Image
+                      src="/profile2.jpg" 
+                      alt="Roushan Kumar"
+                      fill
+                      className="object-cover"
+                      priority
+                    />
                   </div>
-                  <div className="p-4 text-sm">
-                    <pre className="text-gray-300">
+                  
+                  <div className={`absolute inset-0 bg-gradient-to-t from-neon-blue/80 to-transparent opacity-0 transition-opacity duration-300 flex items-end justify-center pb-6 ${isHovering ? 'opacity-70' : ''}`}>
+                    <span className="text-white font-bold text-xl">ROUSHAN KUMAR</span>
+                  </div>
+                </motion.div>
+                
+                <motion.div 
+                  className="absolute top-10 left-10 z-20 bg-slate-800/80 backdrop-blur-sm p-3 rounded-full shadow-[0_0_15px_rgba(56,189,248,0.2)]"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <FiCode className="text-neon-blue text-xl" />
+                </motion.div>
+                
+                <motion.div 
+                  className="absolute bottom-10 left-10 z-20 bg-slate-800/80 backdrop-blur-sm p-3 rounded-full shadow-[0_0_15px_rgba(168,85,247,0.2)]"
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                >
+                  <FiSmartphone className="text-neon-purple text-xl" />
+                </motion.div>
+                
+                <motion.div 
+                  className="absolute top-10 right-10 z-20 bg-slate-800/80 backdrop-blur-sm p-3 rounded-full shadow-[0_0_15px_rgba(56,189,248,0.2)]"
+                  animate={{ y: [0, -15, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                >
+                  <FiGlobe className="text-neon-blue text-xl" />
+                </motion.div>
+                
+                <motion.div 
+                  className="absolute bottom-10 right-10 z-20 bg-slate-800/80 backdrop-blur-sm p-3 rounded-full shadow-[0_0_15px_rgba(168,85,247,0.2)]"
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+                >
+                  <FiUser className="text-neon-purple text-xl" />
+                </motion.div>
+              </div>
+
+              {/* code window */}
+              <div className="relative w-full h-80 md:h-96 mb-8">
+                <div className="w-full h-full rounded-lg overflow-hidden relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-neon-blue/20 to-neon-purple/20"></div>
+                  <div className="code-window absolute inset-0 flex flex-col">
+                    <div className="flex items-center space-x-1 p-2 border-b border-gray-700">
+                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                      <span className="text-xs text-gray-400 ml-2">about-me.js</span>
+                    </div>
+                    <div className="p-4 text-sm">
+                      <pre className="text-gray-300">
 {`const developer = {
   name: "ROUSHAN KUMAR",
   location: "Patna, Bihar, India",
@@ -113,10 +253,12 @@ export default function About() {
     return "Building amazing mobile apps"
   }
 };`}
-                    </pre>
+                      </pre>
+                    </div>
                   </div>
                 </div>
               </div>
+             
             </div>
           </motion.div>
 

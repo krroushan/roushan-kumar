@@ -1,0 +1,1 @@
+To complete the implementation: Place your profile photo in the public folder as 'profile.jpg'
