@@ -219,7 +219,7 @@ export default function About() {
               </div>
 
               {/* code window */}
-              <div className="relative w-full h-80 md:h-96 mb-8">
+              <div className="relative w-full h-auto min-h-[250px] sm:h-80 md:h-96 mb-8 overflow-hidden">
                 <div className="w-full h-full rounded-lg overflow-hidden relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-neon-blue/20 to-neon-purple/20"></div>
                   <div className="code-window absolute inset-0 flex flex-col">
@@ -229,8 +229,8 @@ export default function About() {
                       <div className="w-3 h-3 rounded-full bg-green-500"></div>
                       <span className="text-xs text-gray-400 ml-2">about-me.js</span>
                     </div>
-                    <div className="p-4 text-sm">
-                      <pre className="text-gray-300">
+                    <div className="p-4 text-xs sm:text-sm overflow-auto">
+                      <pre className="text-gray-300 whitespace-pre-wrap break-words max-w-full">
 {`const developer = {
   name: "ROUSHAN KUMAR",
   location: "Patna, Bihar, India",

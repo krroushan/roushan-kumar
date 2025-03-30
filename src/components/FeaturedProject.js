@@ -230,13 +230,13 @@ const authMiddleware = async (req, res, next) => {
             <div 
               ref={containerRef}
               className="rounded-lg overflow-hidden bg-gradient-to-br from-neon-blue/30 to-neon-purple/30 relative"
-              style={{ height: '500px' }} // Taller container for better visibility
+              style={{ height: '500px', maxWidth: '100%' }}
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
             >
               <div 
                 ref={imageRef}
-                className="transition-transform duration-300 ease-out"
+                className="transition-transform duration-300 ease-out w-full"
                 style={{ 
                   transform: `translateY(-${scrollPosition}px)`,
                 }}
@@ -245,7 +245,7 @@ const authMiddleware = async (req, res, next) => {
                 <img 
                   src="/projects/tarkari-com.png" 
                   alt={featuredProject.title}
-                  className="w-full object-contain"
+                  className="w-full object-contain max-w-full"
                 />
               </div>
               
@@ -298,7 +298,7 @@ const authMiddleware = async (req, res, next) => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="relative"
           >
-            <div className="sticky top-20">
+            <div className="sticky top-20 w-full overflow-hidden">
               <div className="code-window h-[600px] overflow-hidden relative">
                 <div className="flex items-center space-x-1 p-2 border-b border-gray-700">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
@@ -307,8 +307,8 @@ const authMiddleware = async (req, res, next) => {
                   <span className="text-xs text-gray-400 ml-2">project-demo.js</span>
                 </div>
                 
-                <div className="p-4 h-full overflow-auto space-y-4">
-                  <pre className="text-gray-300 text-sm">
+                <div className="p-4 h-full overflow-auto space-y-4 custom-scrollbar">
+                  <pre className="text-gray-300 text-sm overflow-x-auto break-words whitespace-pre-wrap">
 {`// E-Commerce Platform Architecture
 const services = {
   auth: {

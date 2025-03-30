@@ -89,7 +89,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="relative"
+            className="relative w-full overflow-hidden"
           >
             <div className="w-full h-96 relative flex items-center justify-center">
               {/* Simulated planet/orbit graphic */}
@@ -100,7 +100,7 @@ export default function Hero() {
               
               {/* Sample code snippets orbiting */}
               <motion.div 
-                className="absolute code-window max-w-[200px] text-xs shadow-[0_0_15px_rgba(56,189,248,0.2)]"
+                className="absolute code-window max-w-[180px] text-xs shadow-[0_0_15px_rgba(56,189,248,0.2)]"
                 animate={{
                   rotate: [0, 360],
                   x: [40, -40, 40],
@@ -112,7 +112,7 @@ export default function Hero() {
                   ease: "linear"
                 }}
               >
-                <pre>{`import React from 'react';
+                <pre className="whitespace-pre-wrap break-words">{`import React from 'react';
 import { View } from 'react-native';
 
 const App = () => {
@@ -121,7 +121,7 @@ const App = () => {
               </motion.div>
               
               <motion.div 
-                className="absolute code-window max-w-[200px] text-xs shadow-[0_0_15px_rgba(168,85,247,0.2)]"
+                className="absolute code-window max-w-[180px] text-xs shadow-[0_0_15px_rgba(168,85,247,0.2)]"
                 animate={{
                   rotate: [0, -360],
                   x: [-50, 50, -50],
@@ -133,7 +133,7 @@ const App = () => {
                   ease: "linear"
                 }}
               >
-                <pre>{`void main() {
+                <pre className="whitespace-pre-wrap break-words">{`void main() {
   runApp(MyApp());
 }
 

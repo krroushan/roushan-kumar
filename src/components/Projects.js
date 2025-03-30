@@ -203,7 +203,7 @@ function ProjectCard({ project, itemVariants }) {
     return tags.map((tag, idx) => (
       <span 
         key={idx} 
-        className="text-xs font-medium px-3 py-1.5 rounded-full bg-slate-700/80 text-neon-blue backdrop-blur-sm"
+        className="text-xs font-medium px-3 py-1.5 rounded-full bg-slate-700/80 text-neon-blue backdrop-blur-sm inline-block mb-2 mr-2"
       >
         {tag}
       </span>
@@ -237,9 +237,9 @@ function ProjectCard({ project, itemVariants }) {
     }
     
     return (
-      <div className={`absolute top-4 left-4 bg-gradient-to-r ${color} backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center gap-1.5 z-20`}>
+      <div className={`absolute top-4 left-4 bg-gradient-to-r ${color} backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center gap-1.5 z-20 max-w-[90%] overflow-hidden`}>
         <span>{icon}</span>
-        <span className="text-xs font-medium text-white">{label}</span>
+        <span className="text-xs font-medium text-white truncate">{label}</span>
       </div>
     );
   };
@@ -275,15 +275,15 @@ function ProjectCard({ project, itemVariants }) {
         className="card bg-slate-800/90 backdrop-blur-sm rounded-xl overflow-hidden h-full flex flex-col justify-between border border-slate-700/50 shadow-lg"
       >
         <div>
-          <div className="h-56 overflow-hidden relative">
+          <div className="h-48 sm:h-56 overflow-hidden relative">
             {renderCategory(project.category)}
             <div className="absolute inset-0 bg-gradient-to-t from-slate-800 to-transparent z-10"></div>
             
             {/* Project image backdrop */}
             <div className="bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 h-full flex items-center justify-center relative">
               {/* Custom project icon based on Serq.in design */}
-              <div className="relative w-16 h-16 rounded-full bg-slate-700/80 flex items-center justify-center backdrop-blur-sm z-20">
-                <FiFolder size={32} className="text-neon-blue" />
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-slate-700/80 flex items-center justify-center backdrop-blur-sm z-20">
+                <FiFolder size={28} className="text-neon-blue" />
               </div>
               
               {/* Animated background effect similar to Serq.in */}
@@ -294,28 +294,28 @@ function ProjectCard({ project, itemVariants }) {
             </div>
           </div>
           
-          <div className="p-6">
-            <h3 className="text-xl font-bold mb-3">{project.title}</h3>
-            <p className="text-gray-300 text-sm mb-5 line-clamp-3">{project.description}</p>
-            <div className="flex flex-wrap gap-2">
+          <div className="p-4 sm:p-6">
+            <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 line-clamp-2">{project.title}</h3>
+            <p className="text-gray-300 text-xs sm:text-sm mb-3 sm:mb-5 line-clamp-3">{project.description}</p>
+            <div className="flex flex-wrap -mr-2 -mb-2">
               {renderTags(project.tags)}
             </div>
           </div>
         </div>
         
-        <div className="flex justify-between items-center p-6 border-t border-slate-700/50">
+        <div className="flex justify-between items-center p-4 sm:p-6 border-t border-slate-700/50">
           <div className="flex gap-2">
             {project.github && (
               <motion.a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full flex items-center justify-center bg-slate-700/80 text-gray-300 hover:text-neon-blue hover:bg-slate-600 transition-colors backdrop-blur-sm"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-slate-700/80 text-gray-300 hover:text-neon-blue hover:bg-slate-600 transition-colors backdrop-blur-sm"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label="View GitHub repository"
               >
-                <FiGithub size={18} />
+                <FiGithub size={16} className="sm:text-lg" />
               </motion.a>
             )}
             {project.demo && (
@@ -323,12 +323,12 @@ function ProjectCard({ project, itemVariants }) {
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full flex items-center justify-center bg-slate-700/80 text-gray-300 hover:text-neon-blue hover:bg-slate-600 transition-colors backdrop-blur-sm"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-slate-700/80 text-gray-300 hover:text-neon-blue hover:bg-slate-600 transition-colors backdrop-blur-sm"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label="View live demo"
               >
-                <FiExternalLink size={18} />
+                <FiExternalLink size={16} className="sm:text-lg" />
               </motion.a>
             )}
           </div>
@@ -336,7 +336,7 @@ function ProjectCard({ project, itemVariants }) {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="text-sm font-medium text-neon-blue hover:underline"
+            className="text-xs sm:text-sm font-medium text-neon-blue hover:underline"
           >
             View Details
           </motion.button>

@@ -12,6 +12,13 @@
   --foreground: #ededed;
 }
 
+/* Add overflow-x: hidden to body and html to prevent horizontal scrolling */
+html, body {
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+}
+
 @layer base {
   body {
     @apply bg-dark-blue text-white min-h-screen;
@@ -32,7 +39,12 @@
   }
   
   .code-window {
-    @apply bg-slate-code rounded-lg p-4 border border-gray-700 font-mono text-sm;
+    @apply bg-slate-code rounded-lg p-4 border border-gray-700 font-mono text-sm overflow-hidden;
+  }
+  
+  /* Add specific styling for pre elements inside code windows */
+  .code-window pre {
+    @apply whitespace-pre-wrap break-words max-w-full;
   }
   
   .btn {
@@ -68,4 +80,118 @@
   50% {
     opacity: 1;
   }
+}
+
+/* Fix for pre code blocks which can cause horizontal scrolling */
+pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+/* Fix for any element that might overflow */
+.container {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar with neon effect */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #38bdf8, #a855f7);
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #0ea5e9, #9333ea);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.8);
+}
+
+/* For Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #38bdf8 rgba(15, 23, 42, 0.6);
+}
+
+/* Add subtle pulsing animation for additional neon effect */
+@keyframes scrollbar-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.8);
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  animation: scrollbar-glow 2s ease-in-out infinite;
+}
+
+/* Custom neon scrollbar for code windows */
+.code-window .overflow-auto::-webkit-scrollbar,
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.code-window .overflow-auto::-webkit-scrollbar-track,
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: 4px;
+  margin: 2px;
+}
+
+.code-window .overflow-auto::-webkit-scrollbar-thumb,
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #38bdf8, #a855f7);
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+.code-window .overflow-auto::-webkit-scrollbar-thumb:hover,
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #0ea5e9, #9333ea);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.8);
+}
+
+/* Firefox compatibility */
+.code-window .overflow-auto,
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #38bdf8 rgba(15, 23, 42, 0.3);
+}
+
+/* Pulsing neon glow effect */
+@keyframes scrollbar-neon-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.9), 0 0 20px rgba(168, 85, 247, 0.4);
+  }
+}
+
+.code-window .overflow-auto::-webkit-scrollbar-thumb,
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  animation: scrollbar-neon-pulse 3s ease-in-out infinite;
+}
+
+/* Enhance the overall code window with subtle glow */
+.code-window {
+  box-shadow: 0 0 15px rgba(15, 23, 42, 0.5), inset 0 0 2px rgba(56, 189, 248, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+
+.code-window:hover {
+  box-shadow: 0 0 20px rgba(15, 23, 42, 0.6), inset 0 0 3px rgba(56, 189, 248, 0.3);
 }
