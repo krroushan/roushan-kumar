@@ -192,7 +192,7 @@ export default function Skills() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+          className="mt-16 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8"
         >
           {[
             { name: 'React Native', icon: 'FaReact', color: '#61DAFB' },
@@ -214,9 +214,9 @@ export default function Skills() {
               className="flex flex-col items-center"
               custom={index}
             >
-              <div className="w-full p-6 bg-slate-800 rounded-xl flex flex-col items-center justify-center mb-4 shadow-lg hover:shadow-[0_0_25px_rgba(56,189,248,0.3)] transition-all group hover:-translate-y-2 cursor-pointer">
+              <div className="w-full p-4 sm:p-6 bg-slate-800 rounded-xl flex flex-col items-center justify-center mb-3 sm:mb-4 shadow-lg hover:shadow-[0_0_25px_rgba(56,189,248,0.3)] transition-all group hover:-translate-y-2 cursor-pointer">
                 <div 
-                  className="text-5xl mb-4 text-gray-400 group-hover:text-neon-blue transition-all"
+                  className="text-4xl sm:text-5xl mb-3 sm:mb-4 text-gray-400 group-hover:text-neon-blue transition-all"
                   style={{ color: tech.color }}
                 >
                   {tech.icon === 'FaReact' && <FaReact size={48} />}
@@ -232,7 +232,7 @@ export default function Skills() {
                   {tech.icon === 'FaGitAlt' && <FaGitAlt size={48} />}
                   {tech.icon === 'FaSearch' && <FaSearch size={48} />}
                 </div>
-                <h3 className="text-lg font-medium text-white group-hover:text-neon-blue transition-all">{tech.name}</h3>
+                <h3 className="text-sm sm:text-lg font-medium text-white group-hover:text-neon-blue transition-all">{tech.name}</h3>
               </div>
             </motion.div>
           ))}

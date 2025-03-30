@@ -307,7 +307,7 @@ const authMiddleware = async (req, res, next) => {
                   <span className="text-xs text-gray-400 ml-2">project-demo.js</span>
                 </div>
                 
-                <div className="p-4 h-full overflow-auto space-y-4 custom-scrollbar">
+                <div className="p-4 h-full overflow-auto custom-scrollbar space-y-4">
                   <pre className="text-gray-300 text-sm overflow-x-auto break-words whitespace-pre-wrap">
 {`// E-Commerce Platform Architecture
 const services = {
@@ -367,16 +367,24 @@ function ProductList() {
 }`}
                   </pre>
                   
-                  <div className="text-neon-blue border border-neon-blue rounded p-3 shadow-[0_0_15px_rgba(56,189,248,0.2)]">
-                    <h5 className="font-bold mb-2">Project Highlights:</h5>
-                    <ul className="list-disc list-inside space-y-1 text-gray-300 text-sm">
-                      <li>Microservices architecture</li>
-                      <li>Responsive React components with hooks</li>
-                      <li>Server-side rendering with Next.js</li>
-                      <li>JWT authentication system</li>
-                      <li>Stripe payment integration</li>
-                      <li>MongoDB database with Mongoose ODM</li>
-                    </ul>
+                  <div className="text-neon-blue border border-neon-blue rounded p-3 shadow-[0_0_15px_rgba(56,189,248,0.2)] relative overflow-hidden group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-neon-blue/5 to-neon-purple/5 opacity-30"></div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-neon-blue/10 via-transparent to-neon-purple/10 blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div className="relative z-10">
+                      <h5 className="font-bold mb-2 flex items-center">
+                        <span className="text-xs mr-2">✨</span>
+                        Project Highlights:
+                        <span className="text-xs ml-2">✨</span>
+                      </h5>
+                      <ul className="list-disc list-inside space-y-1 text-gray-300 text-sm">
+                        <li>Microservices architecture</li>
+                        <li>Responsive React components with hooks</li>
+                        <li>Server-side rendering with Next.js</li>
+                        <li>JWT authentication system</li>
+                        <li>Stripe payment integration</li>
+                        <li>MongoDB database with Mongoose ODM</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
