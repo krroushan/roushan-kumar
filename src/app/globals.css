@@ -1,26 +1,71 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply bg-dark-blue text-white min-h-screen;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-neon-blue to-neon-purple;
+  }
+  
+  .glow {
+    @apply transition-all duration-300 hover:shadow-[0_0_15px_rgba(56,189,248,0.5)];
+  }
+  
+  .card {
+    @apply bg-slate-code rounded-lg p-6 shadow-lg transition-all duration-300 hover:shadow-[0_5px_20px_rgba(56,189,248,0.3)] hover:-translate-y-1;
+  }
+  
+  .code-window {
+    @apply bg-slate-code rounded-lg p-4 border border-gray-700 font-mono text-sm;
+  }
+  
+  .btn {
+    @apply px-6 py-2 rounded-md transition-all duration-300;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-neon-blue to-neon-purple hover:from-neon-purple hover:to-neon-blue text-white glow;
+  }
+  
+  .btn-outline {
+    @apply border border-neon-blue text-neon-blue hover:bg-neon-blue/10 glow;
+  }
+}
+
+/* Space and star effect */
+.stars-container {
+  @apply fixed top-0 left-0 w-full h-full z-[-1] overflow-hidden;
+  background: radial-gradient(ellipse at bottom, #0f172a 0%, #020617 100%);
+}
+
+.star {
+  @apply absolute rounded-full;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+  animation: twinkle var(--duration) linear infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
 }
